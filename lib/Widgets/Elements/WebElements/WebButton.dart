@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/IButton.dart';
 
-import 'WebAltText.dart';
+import 'WebText.dart';
+
 
 class WebButton extends IButton {
-  WebButton({Key? key,
-      required String content,
-      required VoidCallback? onPressed,
-      EdgeInsets? outMargin})
-      : super(
+  WebButton({
+    Key? key,
+    required String content,
+    required VoidCallback? onPressed,
+    EdgeInsets? outMargin,
+  }) : super(
           key: key,
           content: content,
           onPressed: onPressed,
@@ -31,7 +33,7 @@ class WebButton extends IButton {
         ),
         onPressed: onPressed,
         child: Container(
-          child: WebAltText(content),
+          child: WebText(content),
           padding: EdgeInsets.all(10),
         ),
       ),

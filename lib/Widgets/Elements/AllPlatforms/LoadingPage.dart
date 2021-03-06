@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:statecontroll/Widgets/Cofigurator.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/ILoadingPage.dart';
 
 class LoadingPage<T> extends ILoadingPage<T> {
   LoadingPage({
     required Future<T> loader,
-    required Widget content,
+    required Widget Function(T? response) content,
   }) : super(
           loader: loader,
           content: content,
@@ -18,16 +17,18 @@ class LoadingPage<T> extends ILoadingPage<T> {
         future: super.loader,
         builder: (context, response) {
           if (response.hasData) {
-            return Container();
+            return content(response.data);
           } else if (response.hasError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content:
-                    Configurator().getFabric().getText("${response.error}"),
-              ),
-            );
+            print("${response.error}");
           }
-          return CircularProgressIndicator();
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Center(
+                child: CircularProgressIndicator(),
+              ),
+            ],
+          );
         });
   }
 }

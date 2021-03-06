@@ -3,6 +3,7 @@ import 'package:statecontroll/Widgets/Elements/AllPlatforms/LoadingPage.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/IApp.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/IButton.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/IDropdownButton.dart';
+import 'package:statecontroll/Widgets/Elements/Interfaces/IActionExpansionTile.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/ILoadingPage.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/IText.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/ITextField.dart';
@@ -11,6 +12,7 @@ import 'package:statecontroll/Widgets/Elements/WebElements/WebAltText.dart';
 import 'package:statecontroll/Widgets/Elements/WebElements/WebApp.dart';
 import 'package:statecontroll/Widgets/Elements/WebElements/WebButton.dart';
 import 'package:statecontroll/Widgets/Elements/WebElements/WebDropdownButton.dart';
+import 'package:statecontroll/Widgets/Elements/WebElements/WebExpansionTile.dart';
 import 'package:statecontroll/Widgets/Elements/WebElements/WebText.dart';
 import 'package:statecontroll/Widgets/Elements/WebElements/WebTextField.dart';
 import 'package:statecontroll/Widgets/Elements/WebElements/WebWindow.dart';
@@ -144,11 +146,24 @@ class WebFabric extends IFabric {
   @override
   ILoadingPage<T> getLoadingPage<T>({
     required Future<T> loader,
-    required Widget content,
+    required Widget Function(T? response) content,
   }) {
     return LoadingPage(
       loader: loader,
       content: content,
+    );
+  }
+
+  @override
+  IActionExpansionTile getActionExpansionTile(
+    String title, {
+    Map<String, VoidCallback?>? childrens,
+    EdgeInsets? outMargin
+  }) {
+    return WebExpansionTile(
+      title,
+      childrens: childrens,
+      outMargin: outMargin,
     );
   }
 }

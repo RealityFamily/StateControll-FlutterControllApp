@@ -2,12 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/IApp.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/IButton.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/IDropdownButton.dart';
+import 'package:statecontroll/Widgets/Elements/Interfaces/IActionExpansionTile.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/ILoadingPage.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/IText.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/ITextField.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/IWindow.dart';
 
 abstract class IFabric {
+  /// Метод, возвращающий виджет приложения под запускаемую ОС.
+  ///  
+  /// * `routes` указывается ассоциативный массив [Map<String, (context) => Widget>] всех ссылок приложения.
+  /// 
+  /// * `primatyColor` указывается основной цвет приложения, используемый для всех карт с данными.
+  ///
+  /// * `backgroundColor` указывается цвет для заднего фона приложения.
+  ///
+  /// * `buttonColor` указывается цвет для всех клавиш внутри приложения.
   IApp getApp({
     required Map<String, Widget Function(BuildContext)> routes,
     Color? primaryColor,
@@ -68,6 +78,12 @@ abstract class IFabric {
 
   ILoadingPage<T> getLoadingPage<T>({
     required Future<T> loader,
-    required Widget content,
+    required Widget Function(T? response) content,
+  });
+
+  IActionExpansionTile getActionExpansionTile(
+    String title, {
+    Map<String, VoidCallback?>? childrens,
+    EdgeInsets? outMargin,
   });
 }

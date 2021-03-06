@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/IWindow.dart';
 
+import 'WebButton.dart';
+
 class WebWindow extends IWindow {
   WebWindow({
     Key? key,
@@ -20,7 +22,26 @@ class WebWindow extends IWindow {
         child: Card(
           color: Theme.of(context).primaryColor,
           child: Container(
-            child: child,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  child: child,
+                ),
+                if (Navigator.canPop(context))
+                  Container(
+                    margin: EdgeInsets.only(top: 15),
+                    child: WebButton(
+                      content: "Назад",
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  )
+                else
+                  SizedBox.shrink()
+              ],
+            ),
             margin: EdgeInsets.all(30),
             width: MediaQuery.of(context).size.width * 0.75,
           ),

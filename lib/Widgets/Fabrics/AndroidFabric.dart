@@ -4,12 +4,14 @@ import 'package:statecontroll/Widgets/Elements/AndroidElements/AndroidAltText.da
 import 'package:statecontroll/Widgets/Elements/AndroidElements/AndroidApp.dart';
 import 'package:statecontroll/Widgets/Elements/AndroidElements/AndroidButton.dart';
 import 'package:statecontroll/Widgets/Elements/AndroidElements/AndroidDropdownButton.dart';
+import 'package:statecontroll/Widgets/Elements/AndroidElements/AndroidExpansionTile.dart';
 import 'package:statecontroll/Widgets/Elements/AndroidElements/AndroidText.dart';
 import 'package:statecontroll/Widgets/Elements/AndroidElements/AndroidTextField.dart';
 import 'package:statecontroll/Widgets/Elements/AndroidElements/AndroidWindow.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/IApp.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/IButton.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/IDropdownButton.dart';
+import 'package:statecontroll/Widgets/Elements/Interfaces/IActionExpansionTile.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/ILoadingPage.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/IText.dart';
 import 'package:statecontroll/Widgets/Elements/Interfaces/ITextField.dart';
@@ -141,11 +143,24 @@ class AndroidFabric extends IFabric {
   @override
   ILoadingPage<T> getLoadingPage<T>({
     required Future<T> loader,
-    required Widget content,
+    required Widget Function(T? response) content,
   }) {
     return LoadingPage(
       loader: loader,
       content: content,
+    );
+  }
+
+  @override
+  IActionExpansionTile getActionExpansionTile(
+    String title, {
+    Map<String, VoidCallback?>? childrens,
+    EdgeInsets? outMargin,
+  }) {
+    return AndroidExpansionTile(
+      title,
+      childrens: childrens,
+      outMargin: outMargin,
     );
   }
 }

@@ -24,6 +24,9 @@ class AndroidWindow extends IWindow {
           fontWeight: FontWeight.bold,
         ),
         backgroundColor: Theme.of(context).primaryColor,
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
       ),
       body: Center(
         child: Card(

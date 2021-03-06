@@ -4,12 +4,12 @@ import 'package:statecontroll/Widgets/Elements/Interfaces/IButton.dart';
 import 'AndroidText.dart';
 
 class AndroidButton extends IButton {
-  AndroidButton(
-      {Key? key,
-      required String content,
-      required VoidCallback? onPressed,
-      EdgeInsets? outMargin})
-      : super(
+  AndroidButton({
+    Key? key,
+    required String content,
+    required VoidCallback? onPressed,
+    EdgeInsets? outMargin,
+  }) : super(
           key: key,
           content: content,
           onPressed: onPressed,
