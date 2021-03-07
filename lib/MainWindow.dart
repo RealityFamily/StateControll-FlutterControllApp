@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:statecontroll/Widgets/Cofigurator.dart';
-import 'package:statecontroll/Widgets/Fabrics/IFabric.dart';
+import 'package:ui_factory/Cofigurator.dart';
+import 'package:ui_factory/Fabrics/IFabric.dart';
 
 class MainWindow extends StatelessWidget {
   final IFabric fabric = Configurator().getFabric();

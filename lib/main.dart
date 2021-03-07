@@ -1,9 +1,10 @@
 import 'package:flutter/widgets.dart';
-import 'package:statecontroll/AppList.dart';
-import 'package:statecontroll/ControllList.dart';
+import 'package:ui_factory/Cofigurator.dart';
+import 'package:ui_factory/Fabrics/IFabric.dart';
 
-import 'Widgets/Cofigurator.dart';
-import 'Widgets/Fabrics/IFabric.dart';
+
+import 'AppList.dart';
+import 'ControllList.dart';
 import 'MainWindow.dart';
 
 void main() {

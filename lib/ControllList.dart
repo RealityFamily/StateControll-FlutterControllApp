@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:statecontroll/Models/App.dart';
 import 'package:statecontroll/Network/NetworkApp.dart';
-import 'package:statecontroll/Widgets/Cofigurator.dart';
-import 'package:statecontroll/Widgets/Fabrics/IFabric.dart';
+import 'package:ui_factory/Cofigurator.dart';
+import 'package:ui_factory/Fabrics/IFabric.dart';
 
 class ControllList extends StatelessWidget {
   @override
