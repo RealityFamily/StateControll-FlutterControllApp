@@ -1,18 +1,34 @@
 import 'dart:convert';
 
-List<App> getAppsListFromJSON(String str) =>
-    List<App>.from(json.decode(str).map((temp) => App.fromJSON(temp)));
+List<App> getConfiguredAppsListFromJSON(String str) =>
+    List<App>.from(json.decode(str).map((temp) => App.fromJSON(temp, {AppType.Configured})));
+
+List<App> getStatefullAppsListFromJSON(String str) =>
+    List<App>.from(json.decode(str).map((temp) => App.fromJSON(temp, {AppType.Statefull})));
+
+enum AppType{
+    Configured,
+    Statefull
+}
 
 class App {
   String name;
   String device;
-  List<String>? tags;
+  String sessionId;
+  Set<AppType>? tags;
 
-  App(this.name, {required this.device, this.tags});
+  App(this.name, {required this.device, required this.sessionId, this.tags});
 
-  factory App.fromJSON(Map<String, dynamic> json) => App(
+  // ignore: hash_and_equals
+  bool operator ==(Object other) {
+    return other is App && other.name == this.name && other.device == this.device;
+  }
+
+  factory App.fromJSON(Map<String, dynamic> json, Set<AppType>? tags) => App(
         json["name"],
-        device: json["device"],
-        tags: json["tags"],
+        device: json["deviceName"],
+        sessionId: json["sessionId"],
+        tags: tags,
       );
+
 }

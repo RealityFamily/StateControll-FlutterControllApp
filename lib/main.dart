@@ -1,10 +1,11 @@
 import 'package:flutter/widgets.dart';
+import 'package:statecontroll/Screens/ConfigList.dart';
 import 'package:ui_factory/Cofigurator.dart';
 import 'package:ui_factory/Fabrics/IFabric.dart';
 
 
 import 'AppList.dart';
-import 'ControllList.dart';
+import 'StateList.dart';
 import 'MainWindow.dart';
 
 void main() {
@@ -16,7 +17,8 @@ void main() {
         "/": (context) =>
             fabric.getWindow(title: "StateControll", child: MainWindow()),
         "/apps": (context) => fabric.getWindow(title: "Запущенные приложения", child: AppList()),
-        "/controll": (context) => fabric.getWindow(title: "Управление приложением", child: ControllList()),
+        "/state": (context) => fabric.getWindow(title: "Управление приложением", child: StateList()),
+        "/config": (context) => fabric.getWindow(title: "Конфигурация приложения", child: ConfigList()),
       },
       primaryColor: Color.fromARGB(255, 253, 119, 82),
       backgroundColor: Color.fromARGB(255, 31, 21, 37),

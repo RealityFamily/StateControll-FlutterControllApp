@@ -24,8 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  #http
-  http: any
+  #dio
+  dio: ^3.0.10
 
   ui_factory:
     path: packages/ui_factory

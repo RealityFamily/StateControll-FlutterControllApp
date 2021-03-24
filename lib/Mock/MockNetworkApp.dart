@@ -1,5 +1,6 @@
 import 'package:mockito/mockito.dart';
 import 'package:statecontroll/Models/App.dart';
+import 'package:statecontroll/Models/Config.dart';
 
 class MockNetworkApp extends Mock {
   static final MockNetworkApp _instance = new MockNetworkApp._internal();
@@ -14,9 +15,9 @@ class MockNetworkApp extends Mock {
         Duration(seconds: 1),
         () {
           return [
-            App("Wolf and Eggs", device: "Rog 1"),
-            App("IT TV", device: "Rog 2"),
-            App("Somthing New", device: "Quest 1"),
+            App("Wolf and Eggs", device: "Rog 1", sessionId: "", tags: {AppType.Statefull}),
+            App("IT TV", device: "Rog 2", sessionId: "", tags: {AppType.Configured}),
+            App("Somthing New", device: "Quest 1", sessionId: "", tags: {AppType.Statefull, AppType.Configured}),
           ];
         },
       );
@@ -29,6 +30,37 @@ class MockNetworkApp extends Mock {
             "Задача 2",
             "Задача 3",
           ];
+        },
+      );
+
+  Future<Config> getAppConfig() => Future.delayed(
+        Duration(seconds: 1),
+        () {
+          return new Config(
+            "sessionID",
+            [
+              ConfigElement(
+                "bool",
+                DataTypes.Bool,
+                "true",
+              ),
+              ConfigElement(
+                "int",
+                DataTypes.Num,
+                "50",
+              ),
+              ConfigElement(
+                "name",
+                DataTypes.List,
+                "[\"element1\", \"element2\", \"element3\"]",
+              ),
+              ConfigElement(
+                "name",
+                DataTypes.Text,
+                "some text",
+              ),
+            ],
+          );
         },
       );
 }

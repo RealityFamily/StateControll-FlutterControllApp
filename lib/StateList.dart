@@ -1,14 +1,14 @@
 import 'package:flutter/widgets.dart';
 import 'package:statecontroll/Models/App.dart';
-import 'package:statecontroll/Network/NetworkApp.dart';
+import 'package:statecontroll/Network/Network.dart';
 import 'package:ui_factory/Cofigurator.dart';
 import 'package:ui_factory/Fabrics/IFabric.dart';
 
-class ControllList extends StatelessWidget {
+class StateList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final App app = ModalRoute.of(context)!.settings.arguments as App? ??
-        App("", device: "");
+        App("", device: "", sessionId: "");
     final IFabric fabric = Configurator().getFabric();
 
     return Column(
@@ -20,7 +20,7 @@ class ControllList extends StatelessWidget {
           outMargin: EdgeInsets.only(bottom: 15),
         ),
         fabric.getLoadingPage<List<String>>(
-          loader: NetworkApp().getAppStates(app.name),
+          loader: Network().networkStates.getAppStates(app.name),
           content: (List<String>? response) {
             return Flexible(
               child: ListView.builder(
@@ -30,7 +30,7 @@ class ControllList extends StatelessWidget {
                   return fabric.getButton(
                     content: response[index],
                     onPressed: () {
-                      NetworkApp().sendState(app.name, response[index]);
+                      Network().networkStates.sendState(app.name, response[index]);
                     },
                     outMargin: EdgeInsets.symmetric(vertical: 5),
                   );
