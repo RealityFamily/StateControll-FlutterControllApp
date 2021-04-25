@@ -19,12 +19,11 @@ class Network {
   //   return utf8.decode(response.bodyBytes);
   // }
 
-  String baseURL = "http://localhost:8080";
+  String baseURL = "http://dev.realityfamily.ru:18000";
   _NetworkApp networkApp = new _NetworkApp();
   _NetworkConfig networkConfig = new _NetworkConfig();
   _NetworkStates networkStates = new _NetworkStates();
 }
-
 
 class _NetworkApp {
   Future<List<App>> getApps() async {
@@ -41,7 +40,9 @@ class _NetworkApp {
       if (configResponse.statusCode == 200) {
         List<App> configAnswer =
             //getConfiguredAppsListFromJSON(Network().getJSON(configResponse));
-            configResponse.data.map((map) => App.fromJSON(map, {AppType.Configured})).toList();
+            configResponse.data
+                .map((map) => App.fromJSON(map, {AppType.Configured}))
+                .toList();
         configAnswer.forEach(
           (app) {
             if (answer.contains(app)) {
@@ -60,7 +61,7 @@ class _NetworkApp {
       }
 
       var stateResponse = await client
-          .get<List<dynamic>>(Network().baseURL + "/configs/api/control/apps")
+          .get<List<dynamic>>(Network().baseURL + "/states/api/control/apps")
           .timeout(
             Duration(seconds: 3),
           );
@@ -68,7 +69,9 @@ class _NetworkApp {
       if (stateResponse.statusCode == 200) {
         List<App> statefullAnswer =
             //getStatefullAppsListFromJSON(Network().getJSON(configResponse));
-            stateResponse.data.map((map) => App.fromJSON(map, {AppType.Statefull})).toList();
+            stateResponse.data
+                .map((map) => App.fromJSON(map, {AppType.Statefull}))
+                .toList();
         statefullAnswer.forEach(
           (app) {
             if (answer.contains(app)) {
@@ -105,23 +108,29 @@ class _NetworkApp {
   }
 }
 
-
 class _NetworkConfig {
   Future<Config?> getConfigs(App app) async {
     var client = Dio();
     try {
-      var response =
-          await client.get<String>(Network().baseURL + "/configs/api/control/${app.sessionId}/config").timeout(
-                Duration(seconds: 3),
-              );
+      var response = await client
+          .get<String>(Network().baseURL +
+              "/configs/api/control/${app.sessionId}/config")
+          .timeout(
+            Duration(seconds: 3),
+          );
 
-              if (response.statusCode == 200) {
-                var json = jsonDecode(response.data);
-                List<ConfigElement> configElements = json.map((e) {return ConfigElement.fromJSON(e); }).toList().cast<ConfigElement>();
-                return Config(app.sessionId, configElements);
-              } else {
-                return null;
-              }
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.data);
+        List<ConfigElement> configElements = json
+            .map((e) {
+              return ConfigElement.fromJSON(e);
+            })
+            .toList()
+            .cast<ConfigElement>();
+        return Config(app.sessionId, configElements);
+      } else {
+        return null;
+      }
     } catch (e) {
       print("From NettworkConfig: \t $e");
       if (kDebugMode) {
@@ -135,22 +144,29 @@ class _NetworkConfig {
     var client = Dio();
     try {
       var response = await client
-          .post(Network().baseURL + "/configs/api/control/${configs.sessionId}/newConfig", data: configs.config)
+          .post(
+              Network().baseURL +
+                  "/configs/api/control/${configs.sessionId}/newConfig",
+              data: configs.config)
           .timeout(
             Duration(seconds: 3),
           );
 
       if (response.statusCode == 200) {
-        print("Конфигурация отправлена успешно на устройство ${configs.sessionId}.");
+        print(
+            "Конфигурация отправлена успешно на устройство ${configs.sessionId}.");
       } else if (kDebugMode) {
-        print("Конфигурация отправлена успешно на устройство ${configs.sessionId} в режиме отладки.");
+        print(
+            "Конфигурация отправлена успешно на устройство ${configs.sessionId} в режиме отладки.");
       } else {
-        print("Произошла ошибка при отправке конфигурации на устройство ${configs.sessionId}");
+        print(
+            "Произошла ошибка при отправке конфигурации на устройство ${configs.sessionId}");
       }
     } catch (e) {
       print("From NettworkConfig: \t $e");
       if (kDebugMode) {
-        print("Конфигурация отправлена успешно на устройство ${configs.sessionId} в режиме отладки.");
+        print(
+            "Конфигурация отправлена успешно на устройство ${configs.sessionId} в режиме отладки.");
       }
     }
   }
@@ -160,15 +176,16 @@ class _NetworkStates {
   Future<List<String>> getAppStates(String appName) async {
     var client = Dio();
     try {
-      var response =
-          await client.get<List<String>>(Network().baseURL + "/api/control/games").timeout(
-                Duration(seconds: 3),
-              );
+      var response = await client
+          .get<List<String>>(Network().baseURL + "/api/control/games")
+          .timeout(
+            Duration(seconds: 3),
+          );
 
       if (response.statusCode == 200) {
-        return 
-          //(Network().getJSON(response) as List<dynamic>).cast<String>();
-          response.data;
+        return
+            //(Network().getJSON(response) as List<dynamic>).cast<String>();
+            response.data;
       } else if (kDebugMode) {
         return MockNetworkApp().getAppStates(appName);
       } else {

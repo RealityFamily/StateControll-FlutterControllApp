@@ -30,6 +30,8 @@ class _IntConfigState extends State<IntConfig> {
       maxValue = 100;
     } else if (element.name.contains("Min") || element.name.contains("min")) {
       maxValue = 60;
+    } else if (element.name.contains("Hour") || element.name.contains("hour")) {
+      maxValue = 24;
     } else {
       maxValue = 100;
     }

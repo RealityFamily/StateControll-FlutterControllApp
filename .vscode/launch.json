@@ -5,12 +5,23 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "StateControll FlutterControllApp",
+            "name": "StateControll FlutterControllApp Web",
             "request": "launch",
             "type": "dart",
             "args": [
                 "--no-sound-null-safety"
-            ]
+            ],
+            "deviceId": "Chrome"
+        },
+
+        {
+            "name": "StateControll FlutterControllApp A7",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--no-sound-null-safety"
+            ],
+            "deviceId": "SM A750FN"
         },
     ]
 }
